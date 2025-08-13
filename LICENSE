@@ -1,0 +1,69 @@
+MIT License
+
+Copyright (c) 2025 PAM4 Receiver Implementation Project
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+## Third-Party Acknowledgments
+
+This project incorporates concepts and methodologies from:
+
+- MATLAB and HDL Coder: © The MathWorks, Inc.
+- PAM4 Signaling Standards: IEEE Standards Association
+- Verilog HDL: IEEE Standard 1364
+- Web Technologies: HTML5, CSS3, JavaScript ES6+
+
+## Additional Terms
+
+### Educational Use
+This project is primarily intended for educational and research purposes,
+demonstrating advanced MATLAB-to-HDL transformation techniques and PAM4
+receiver implementation methodologies.
+
+### Commercial Use
+While the MIT license permits commercial use, users should ensure compliance
+with any applicable patents, standards, or proprietary technologies related
+to PAM4 signaling and high-speed SerDes implementations.
+
+### Attribution
+When using this project or its methodologies, please provide appropriate
+credit to the original authors and include a reference to this repository.
+
+### MATLAB Toolbox Requirements
+Some features require licensed MATLAB toolboxes:
+- HDL Coder™
+- Fixed-Point Designer™
+- DSP System Toolbox™
+- Xilinx® Vivado™ (for synthesis)
+
+Users are responsible for obtaining appropriate licenses for these tools.
+
+## Disclaimer
+
+This project is provided for educational and research purposes. The authors
+make no warranty regarding the suitability of this implementation for any
+particular application, including but not limited to commercial products,
+safety-critical systems, or regulatory compliance.
+
+The PAM4 receiver implementations demonstrated here are simplified examples
+and may require additional features, optimizations, and validation for
+production use in high-speed communication systems.
+
+Users should conduct their own verification and validation when adapting
+these techniques for specific applications.

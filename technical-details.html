@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Details - PAM4 Receiver Framework</title>
+    <link rel="stylesheet" href="assets/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-microchip"></i>
+                PAM4 Receiver Framework
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#architecture" class="nav-link">Architecture</a></li>
+                <li class="nav-item"><a href="#algorithms" class="nav-link">Algorithms</a></li>
+                <li class="nav-item"><a href="#optimization" class="nav-link">Optimization</a></li>
+                <li class="nav-item"><a href="#validation" class="nav-link">Validation</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 6rem 0 4rem;">
+        <div class="hero-container">
+            <div class="hero-content" style="text-align: center;">
+                <h1>Technical Deep Dive</h1>
+                <h2>PAM4 Receiver Implementation Details</h2>
+                <p>Comprehensive technical analysis of the MATLAB2HDL transformation workflow and optimization strategies</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section id="architecture" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>System Architecture</h2>
+                <p>Detailed breakdown of the PAM4 receiver architecture and signal processing flow</p>
+            </div>
+            
+            <div class="architecture-details">
+                <div class="arch-overview">
+                    <h3>Signal Processing Chain</h3>
+                    <div class="signal-flow">
+                        <div class="flow-stage">
+                            <div class="stage-icon"><i class="fas fa-arrow-right"></i></div>
+                            <h4>PAM4 Input</h4>
+                            <p>7-bit ADC samples<br>4 voltage levels<br>Symbol rate input</p>
+                        </div>
+                        <div class="flow-stage">
+                            <div class="stage-icon"><i class="fas fa-adjust"></i></div>
+                            <h4>AGC</h4>
+                            <p>Digital gain control<br>Power normalization<br>Amplitude scaling</p>
+                        </div>
+                        <div class="flow-stage">
+                            <div class="stage-icon"><i class="fas fa-wave-square"></i></div>
+                            <h4>32-tap FFE</h4>
+                            <p>ISI compensation<br>Circular buffer<br>Q6.6 arithmetic</p>
+                        </div>
+                        <div class="flow-stage">
+                            <div class="stage-icon"><i class="fas fa-cut"></i></div>
+                            <h4>PAM4 Slicer</h4>
+                            <p>3-threshold decision<br>Symbol mapping<br>Error generation</p>
+                        </div>
+                        <div class="flow-stage">
+                            <div class="stage-icon"><i class="fas fa-brain"></i></div>
+                            <h4>LMS Engine</h4>
+                            <p>Adaptive learning<br>Coefficient update<br>Convergence control</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="technical-specs">
+                    <h3>Technical Specifications</h3>
+                    <div class="specs-grid">
+                        <div class="spec-category">
+                            <h4><i class="fas fa-signal"></i> Signal Processing</h4>
+                            <ul>
+                                <li><strong>Input Format:</strong> 7-bit ADC (0-127 range)</li>
+                                <li><strong>PAM4 Levels:</strong> -3, -1, +1, +3 (normalized)</li>
+                                <li><strong>Symbol Rate:</strong> Variable (up to 300 MHz)</li>
+                                <li><strong>Arithmetic:</strong> Q6.6 fixed-point</li>
+                                <li><strong>Pipeline Stages:</strong> 4 inter-module stages</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="spec-category">
+                            <h4><i class="fas fa-microchip"></i> Hardware Target</h4>
+                            <ul>
+                                <li><strong>FPGA:</strong> Xilinx Kintex-7 xc7k410t</li>
+                                <li><strong>Package:</strong> ffg900-1 speed grade</li>
+                                <li><strong>Target Frequency:</strong> 150-300+ MHz</li>
+                                <li><strong>Resource Target:</strong> <2000 LUTs</li>
+                                <li><strong>Memory:</strong> Block RAM optimized</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="spec-category">
+                            <h4><i class="fas fa-chart-line"></i> Performance</h4>
+                            <ul>
+                                <li><strong>Decision Accuracy:</strong> 96.08%</li>
+                                <li><strong>BER Target:</strong> <1e-4</li>
+                                <li><strong>SNR Operating Range:</strong> 20-40 dB</li>
+                                <li><strong>DSP Reduction:</strong> 86%</li>
+                                <li><strong>Frequency Improvement:</strong> 7.5×</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Algorithms Section -->
+    <section id="algorithms" class="section" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Algorithm Implementation</h2>
+                <p>Mathematical foundations and implementation details of core algorithms</p>
+            </div>
+            
+            <div class="algorithms-content">
+                <div class="algorithm-block">
+                    <h3><i class="fas fa-wave-square"></i> Feed-Forward Equalizer (FFE)</h3>
+                    <div class="algorithm-details">
+                        <div class="math-description">
+                            <h4>Mathematical Model</h4>
+                            <p>The FFE implements a 32-tap FIR filter to compensate for channel Inter-Symbol Interference (ISI):</p>
+                            <div class="equation">
+                                <code>y[n] = Σ(k=0 to 31) h[k] * x[n-k]</code>
+                            </div>
+                            <p>Where:</p>
+                            <ul>
+                                <li><code>h[k]</code> - FFE coefficients (adaptively updated)</li>
+                                <li><code>x[n]</code> - Input samples (after AGC)</li>
+                                <li><code>y[n]</code> - Equalized output</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="implementation-details">
+                            <h4>Implementation Features</h4>
+                            <ul>
+                                <li><strong>Circular Buffer:</strong> Efficient sample storage using modulo addressing</li>
+                                <li><strong>Persistent State:</strong> Coefficient memory across function calls</li>
+                                <li><strong>Parallel Processing:</strong> 32 samples processed per clock cycle</li>
+                                <li><strong>Fixed-Point:</strong> Q6.6 format with overflow protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="algorithm-block">
+                    <h3><i class="fas fa-brain"></i> LMS Adaptive Algorithm</h3>
+                    <div class="algorithm-details">
+                        <div class="math-description">
+                            <h4>Adaptation Rule</h4>
+                            <p>The LMS algorithm continuously updates FFE coefficients based on decision errors:</p>
+                            <div class="equation">
+                                <code>h[k](n+1) = h[k](n) + μ * e[n] * x[n-k]</code>
+                            </div>
+                            <p>Where:</p>
+                            <ul>
+                                <li><code>μ</code> - Step size (adaptive based on error magnitude)</li>
+                                <li><code>e[n]</code> - Error signal (ideal - received)</li>
+                                <li><code>x[n-k]</code> - Input sample at delay k</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="implementation-details">
+                            <h4>Advanced Features</h4>
+                            <ul>
+                                <li><strong>Adaptive Step Size:</strong> Dynamic μ based on convergence state</li>
+                                <li><strong>Coefficient Normalization:</strong> Prevents runaway growth</li>
+                                <li><strong>Convergence Detection:</strong> Automatic adaptation control</li>
+                                <li><strong>Stability Mechanisms:</strong> Anti-divergence protection</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="algorithm-block">
+                    <h3><i class="fas fa-cut"></i> PAM4 Slicer</h3>
+                    <div class="algorithm-details">
+                        <div class="math-description">
+                            <h4>Decision Logic</h4>
+                            <p>The PAM4 slicer maps continuous samples to discrete symbols using three decision thresholds:</p>
+                            <div class="equation">
+                                <code>
+                                symbol = {<br>
+                                &nbsp;&nbsp;0 if y < threshold1<br>
+                                &nbsp;&nbsp;1 if threshold1 ≤ y < threshold2<br>
+                                &nbsp;&nbsp;2 if threshold2 ≤ y < threshold3<br>
+                                &nbsp;&nbsp;3 if y ≥ threshold3<br>
+                                }
+                                </code>
+                            </div>
+                        </div>
+                        
+                        <div class="implementation-details">
+                            <h4>Error Signal Generation</h4>
+                            <ul>
+                                <li><strong>Ideal Levels:</strong> {10, 42, 85, 117} for 7-bit ADC</li>
+                                <li><strong>Threshold Calculation:</strong> Midpoints between ideal levels</li>
+                                <li><strong>Error Computation:</strong> Distance to nearest ideal level</li>
+                                <li><strong>Gradient Direction:</strong> Sign information for LMS updates</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Optimization Section -->
+    <section id="optimization" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>HDL Optimization Strategies</h2>
+                <p>Advanced techniques for hardware-efficient implementation</p>
+            </div>
+            
+            <div class="optimization-strategies">
+                <div class="strategy-category">
+                    <h3><i class="fas fa-rocket"></i> DSP Resource Optimization</h3>
+                    <div class="strategy-content">
+                        <div class="strategy-description">
+                            <h4>dsp.FIRFilter System Objects</h4>
+                            <p>The breakthrough 86% DSP reduction was achieved through systematic replacement of traditional FIR implementations with optimized system objects:</p>
+                        </div>
+                        
+                        <div class="optimization-comparison">
+                            <div class="before-after">
+                                <div class="before">
+                                    <h5>Traditional Implementation</h5>
+                                    <pre><code class="language-matlab">% Manual convolution
+for k = 1:num_taps
+    output = output + coeffs(k) * buffer(mod(ptr-k, buffer_size)+1);
+end</code></pre>
+                                    <ul>
+                                        <li>32 DSP48 slices required</li>
+                                        <li>Manual pipeline management</li>
+                                        <li>Complex timing closure</li>
+                                        <li>Limited frequency scaling</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="after">
+                                    <h5>Optimized Implementation</h5>
+                                    <pre><code class="language-matlab">% System object approach
+persistent fir_filter;
+if isempty(fir_filter)
+    fir_filter = dsp.FIRFilter('Numerator', coeffs);
+end
+output = fir_filter(input);</code></pre>
+                                    <ul>
+                                        <li>4-6 DSP48 slices (systolic)</li>
+                                        <li>Automatic pipelining</li>
+                                        <li>Optimized timing</li>
+                                        <li>300+ MHz capability</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy-category">
+                    <h3><i class="fas fa-tachometer-alt"></i> Timing Optimization</h3>
+                    <div class="pipeline-architecture">
+                        <h4>4-Stage Pipeline Architecture</h4>
+                        <div class="pipeline-stages">
+                            <div class="pipeline-stage">
+                                <h5>Stage 1: Input Processing</h5>
+                                <ul>
+                                    <li>AGC application</li>
+                                    <li>Buffer management</li>
+                                    <li>ValidIn processing</li>
+                                </ul>
+                            </div>
+                            <div class="pipeline-stage">
+                                <h5>Stage 2: Convolution</h5>
+                                <ul>
+                                    <li>FFE processing</li>
+                                    <li>Systolic FIR</li>
+                                    <li>Partial products</li>
+                                </ul>
+                            </div>
+                            <div class="pipeline-stage">
+                                <h5>Stage 3: Decision</h5>
+                                <ul>
+                                    <li>PAM4 slicing</li>
+                                    <li>Error calculation</li>
+                                    <li>Symbol mapping</li>
+                                </ul>
+                            </div>
+                            <div class="pipeline-stage">
+                                <h5>Stage 4: Adaptation</h5>
+                                <ul>
+                                    <li>LMS updates</li>
+                                    <li>Coefficient write</li>
+                                    <li>ValidOut generation</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="strategy-category">
+                    <h3><i class="fas fa-memory"></i> Memory Architecture</h3>
+                    <div class="memory-optimization">
+                        <h4>Block RAM vs Distributed RAM Strategy</h4>
+                        <div class="memory-types">
+                            <div class="memory-type">
+                                <h5><i class="fas fa-database"></i> Block RAM Usage</h5>
+                                <ul>
+                                    <li><strong>Coefficient Storage:</strong> 32×16-bit coefficients</li>
+                                    <li><strong>Circular Buffers:</strong> Input sample history</li>
+                                    <li><strong>Dual-Port Access:</strong> Simultaneous read/write</li>
+                                    <li><strong>Efficient Packing:</strong> Multiple coefficients per BRAM</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="memory-type">
+                                <h5><i class="fas fa-microchip"></i> Distributed RAM</h5>
+                                <ul>
+                                    <li><strong>Small Buffers:</strong> Temporary storage</li>
+                                    <li><strong>Control Signals:</strong> State machine variables</li>
+                                    <li><strong>Fast Access:</strong> Single-cycle read/write</li>
+                                    <li><strong>Resource Trade-off:</strong> LUT usage vs BRAM</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Validation Section -->
+    <section id="validation" class="section" style="background: var(--gray-50);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Validation & Verification</h2>
+                <p>Comprehensive testing methodology ensuring implementation correctness</p>
+            </div>
+            
+            <div class="validation-methodology">
+                <div class="validation-category">
+                    <h3><i class="fas fa-check-circle"></i> Dual-Purpose Testbench Pattern</h3>
+                    <div class="testbench-details">
+                        <h4>Design Philosophy</h4>
+                        <p>The testbench serves dual purposes: algorithm validation and HDL verification, ensuring consistency across the transformation workflow.</p>
+                        
+                        <div class="testbench-features">
+                            <div class="feature-block">
+                                <h5>Three-Phase Streaming Protocol</h5>
+                                <ol>
+                                    <li><strong>Input Streaming:</strong> Collect all algorithm inputs with proper formatting</li>
+                                    <li><strong>Parameter Streaming:</strong> Gather algorithm parameters and configuration</li>
+                                    <li><strong>Output Collection:</strong> Systematic result extraction with enable control</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="feature-block">
+                                <h5>Type Consistency Framework</h5>
+                                <ul>
+                                    <li><strong>Exact Matching:</strong> Identical numerictype() calls in MATLAB and HDL</li>
+                                    <li><strong>Complex Data:</strong> numerictype(1, 32, 16) for Q16.16 format</li>
+                                    <li><strong>Offset Data:</strong> numerictype(1, 16, 0) for signed 16-bit</li>
+                                    <li><strong>Control Signals:</strong> Boolean types for valid/enable</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="validation-category">
+                    <h3><i class="fas fa-chart-line"></i> Performance Metrics</h3>
+                    <div class="metrics-framework">
+                        <div class="metric-types">
+                            <div class="metric-type">
+                                <h4>Functional Accuracy</h4>
+                                <ul>
+                                    <li><strong>Decision Accuracy:</strong> Symbol-level comparison (96.08%)</li>
+                                    <li><strong>Error Tolerance:</strong> <1e-4 difference threshold</li>
+                                    <li><strong>Coefficient Tracking:</strong> Adaptation behavior analysis</li>
+                                    <li><strong>Convergence Metrics:</strong> Learning curve validation</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="metric-type">
+                                <h4>Resource Utilization</h4>
+                                <ul>
+                                    <li><strong>LUT Usage:</strong> <2000 LUTs target</li>
+                                    <li><strong>DSP Slices:</strong> 86% reduction achieved</li>
+                                    <li><strong>Block RAM:</strong> Optimal coefficient storage</li>
+                                    <li><strong>Frequency:</strong> 300+ MHz timing closure</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="metric-type">
+                                <h4>Long-term Stability</h4>
+                                <ul>
+                                    <li><strong>Extended Testing:</strong> 19,000+ block sequences</li>
+                                    <li><strong>Coefficient Monitoring:</strong> Runaway detection</li>
+                                    <li><strong>Error Tracking:</strong> Performance degradation analysis</li>
+                                    <li><strong>Stability Comparison:</strong> MATLAB vs HDL behavior</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="validation-category">
+                    <h3><i class="fas fa-microscope"></i> Analysis Tools</h3>
+                    <div class="analysis-suite">
+                        <div class="analysis-tool">
+                            <h4><i class="fas fa-eye"></i> Eye Diagram Analysis</h4>
+                            <ul>
+                                <li>500+ overlapped traces for statistical analysis</li>
+                                <li>PAM4 level separation and eye opening measurement</li>
+                                <li>Noise and jitter characterization</li>
+                                <li>Before/after equalization comparison</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="analysis-tool">
+                            <h4><i class="fas fa-wave-square"></i> Component Analysis</h4>
+                            <ul>
+                                <li>FFE coefficient evolution tracking</li>
+                                <li>AGC convergence behavior</li>
+                                <li>Slicer threshold optimization</li>
+                                <li>LMS learning curve analysis</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="analysis-tool">
+                            <h4><i class="fas fa-chart-bar"></i> Performance Visualization</h4>
+                            <ul>
+                                <li>12-panel comprehensive analysis</li>
+                                <li>Interactive performance comparison</li>
+                                <li>Resource utilization charts</li>
+                                <li>Timeline progression analysis</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-microchip"></i> Technical Documentation</h3>
+                    <p>Comprehensive technical details of the PAM4 receiver implementation and MATLAB2HDL transformation framework.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Related Pages</h4>
+                    <ul>
+                        <li><a href="index.html">Main Project</a></li>
+                        <li><a href="docs/PAM4_Receiver_Project_Documentation.md">Full Documentation</a></li>
+                        <li><a href="docs/Algorithm_Stability_Analysis.md">Stability Analysis</a></li>
+                        <li><a href="docs/PAM4_Receiver_Design_Evolution_Analysis.md">Design Evolution</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Technical Topics</h4>
+                    <ul>
+                        <li>PAM4 Signal Processing</li>
+                        <li>Adaptive Equalization</li>
+                        <li>HDL Optimization</li>
+                        <li>FPGA Implementation</li>
+                        <li>Performance Analysis</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 PAM4 Receiver Technical Documentation. Advanced MATLAB2HDL Framework.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="assets/script.js"></script>
+</body>
+</html>

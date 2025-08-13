@@ -1,0 +1,95 @@
+# GitHub Pages Configuration for PAM4 Receiver Project
+
+# Site settings
+title: "PAM4 Receiver: MATLAB2HDL Transformation Framework"
+description: "Advanced PAM4 receiver implementation showcasing intelligent MATLAB2HDL transformation using sub-agents framework"
+url: "https://username.github.io" # Replace with your GitHub Pages URL
+baseurl: "/PAM4Receiver" # Replace with your repository name
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+
+# Repository information
+repository: username/PAM4Receiver # Replace with your GitHub username/repo
+
+# SEO settings
+lang: en
+author: "PAM4 Receiver Development Team"
+twitter:
+  username: # Add your Twitter handle if desired
+  card: summary_large_image
+
+# Social media and contact
+github_username: # Add your GitHub username
+linkedin_username: # Add your LinkedIn username if desired
+
+# Navigation
+header_pages:
+  - index.html
+
+# Google Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
+
+# Exclude files from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - LICENSE
+  - CNAME
+
+# Include files
+include:
+  - _pages
+  - assets
+  - images
+  - docs
+  - data
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Collections
+collections:
+  implementations:
+    output: true
+    permalink: /:collection/:name/
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "PAM4 Team"
+  - scope:
+      path: ""
+      type: "implementations"
+    values:
+      layout: "implementation"
+
+# Sass configuration
+sass:
+  sass_dir: assets/css
+  style: compressed
+
+# Timezone
+timezone: UTC
+
+# Pagination
+paginate: 10
+paginate_path: "/page:num/"
