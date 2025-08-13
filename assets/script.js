@@ -207,43 +207,109 @@ document.addEventListener('DOMContentLoaded', function() {
         achievementObserver.observe(achievement);
     });
     
-    // Image lazy loading with fade-in effect
+    // Enhanced image loading with better visibility handling
     const images = document.querySelectorAll('img');
     const imageObserver = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.style.opacity = '0';
-                img.style.transition = 'opacity 0.6s ease-out';
                 
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
+                // Skip if already processed
+                if (img.dataset.processed) {
+                    return;
                 }
                 
-                img.onload = function() {
-                    this.style.opacity = '1';
-                };
+                img.style.transition = 'opacity 0.6s ease-out';
+                
+                // Handle lazy loading if data-src exists
+                if (img.dataset.src) {
+                    img.style.opacity = '0';
+                    img.src = img.dataset.src;
+                    img.onload = function() {
+                        this.style.opacity = '1';
+                        this.dataset.processed = 'true';
+                    };
+                    img.onerror = function() {
+                        // Show placeholder or keep visible with error styling
+                        this.style.opacity = '1';
+                        this.dataset.processed = 'true';
+                        console.error('Failed to load image:', this.src);
+                    };
+                } else {
+                    // For images with direct src, ensure visibility
+                    ensureImageVisible(img);
+                }
                 
                 imageObserver.unobserve(img);
             }
         });
     });
     
-    images.forEach(img => {
-        // Add fade-in effect to all images
-        img.style.opacity = '0';
+    // Function to ensure image visibility
+    function ensureImageVisible(img) {
+        if (img.dataset.processed) return;
+        
         img.style.transition = 'opacity 0.6s ease-out';
         
-        // If image is already loaded, fade it in
-        if (img.complete) {
+        if (img.complete && img.naturalHeight !== 0) {
+            // Image is already loaded and valid
             img.style.opacity = '1';
+            img.dataset.processed = 'true';
         } else {
-            img.onload = function() {
-                this.style.opacity = '1';
+            // Set initial state and wait for load
+            img.style.opacity = '0';
+            
+            const handleLoad = function() {
+                if (this.naturalHeight !== 0) {
+                    this.style.opacity = '1';
+                } else {
+                    // Handle broken image
+                    this.style.opacity = '1';
+                    console.error('Image has zero dimensions:', this.src);
+                }
+                this.dataset.processed = 'true';
+                this.removeEventListener('load', handleLoad);
             };
+            
+            const handleError = function() {
+                this.style.opacity = '1';
+                this.dataset.processed = 'true';
+                this.removeEventListener('error', handleError);
+                console.error('Image failed to load:', this.src);
+            };
+            
+            img.addEventListener('load', handleLoad);
+            img.addEventListener('error', handleError);
+            
+            // Fallback timeout to ensure visibility
+            setTimeout(() => {
+                if (!img.dataset.processed) {
+                    img.style.opacity = '1';
+                    img.dataset.processed = 'true';
+                    console.warn('Image visibility timeout reached:', img.src);
+                }
+            }, 3000);
+        }
+    }
+    
+    // Process all images
+    images.forEach(img => {
+        // Skip visitor counter and navigation images
+        if (img.closest('.nav-logo') || 
+            img.closest('.visitor-counter') ||
+            img.src.includes('visitor-badge') ||
+            img.src.includes('badge?')) {
+            img.style.opacity = '1'; // Ensure these are always visible
+            return;
         }
         
-        imageObserver.observe(img);
+        // For images in the Performance Results section, ensure immediate visibility
+        if (img.closest('.result-images') || img.closest('.component-results')) {
+            ensureImageVisible(img);
+        } else {
+            // Use intersection observer for other images
+            imageObserver.observe(img);
+        }
     });
     
     // Parallax effect for hero section
