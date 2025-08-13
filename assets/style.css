@@ -1580,18 +1580,38 @@ img[style*="border: 2px solid red"]::before {
 
 /* Ensure images are visible by default */
 img {
-    opacity: 1 !important;
+    opacity: 1;
     transition: opacity 0.3s ease-out;
 }
 
-/* Special handling for performance section images */
+/* Special handling for performance section images - force stable visibility */
 .result-images img,
 .component-results img {
     opacity: 1 !important;
-    display: block;
+    display: block !important;
     width: 100%;
     height: auto;
     min-height: 150px;
+    transition: none !important; /* Remove all transitions to prevent flashing */
+}
+
+/* Override any JavaScript opacity changes for these sections */
+.result-images img[style*="opacity"],
+.component-results img[style*="opacity"] {
+    opacity: 1 !important;
+    transition: none !important;
+}
+
+/* Ensure stable display for these specific image containers */
+.result-image-card,
+.component-card {
+    opacity: 1;
+}
+
+.result-image-card img,
+.component-card img {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 /* Loading state for images */

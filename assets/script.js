@@ -299,17 +299,17 @@ document.addEventListener('DOMContentLoaded', function() {
             img.closest('.visitor-counter') ||
             img.src.includes('visitor-badge') ||
             img.src.includes('badge?')) {
-            img.style.opacity = '1'; // Ensure these are always visible
-            return;
+            return; // Don't touch these at all
         }
         
-        // For images in the Performance Results section, ensure immediate visibility
+        // COMPLETELY SKIP Performance Results section images - let CSS handle them
         if (img.closest('.result-images') || img.closest('.component-results')) {
-            ensureImageVisible(img);
-        } else {
-            // Use intersection observer for other images
-            imageObserver.observe(img);
+            console.log('Skipping Performance Results image:', img.src);
+            return; // Don't apply any JavaScript processing
         }
+        
+        // Use intersection observer for other images only
+        imageObserver.observe(img);
     });
     
     // Parallax effect for hero section
