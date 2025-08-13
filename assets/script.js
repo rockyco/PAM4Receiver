@@ -535,19 +535,59 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.appendChild(modalCaption);
         document.body.appendChild(modal);
         
-        // Get all images and make them clickable
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            // Skip navigation or icon images
-            if (img.closest('.nav-logo') || img.width < 100) return;
+        // Function to setup image click handlers
+        const setupImageClickHandler = (img) => {
+            // Skip navigation, logo, or visitor counter images
+            if (img.closest('.nav-logo') || 
+                img.closest('.visitor-counter') ||
+                img.src.includes('visitor-badge') ||
+                img.src.includes('badge?') ||
+                img.alt.includes('Visitor Count')) {
+                return;
+            }
             
+            // Add clickable class and styling
             img.classList.add('clickable-image');
-            img.addEventListener('click', function() {
+            img.style.cursor = 'zoom-in';
+            
+            console.log(`Making image clickable: ${img.src}`);
+            
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log(`Image clicked: ${this.src}`);
                 modal.style.display = 'block';
                 modalImg.src = this.src;
                 modalCaption.innerHTML = this.alt || this.closest('.image-caption')?.textContent || 'PAM4 Receiver Analysis';
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
             });
+        };
+        
+        // Setup click handlers for all existing images
+        const images = document.querySelectorAll('img');
+        images.forEach(setupImageClickHandler);
+        
+        // Also setup for any dynamically loaded images
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.addedNodes.forEach(function(node) {
+                        if (node.nodeType === 1) { // Element node
+                            if (node.tagName === 'IMG') {
+                                setupImageClickHandler(node);
+                            }
+                            const imgs = node.querySelectorAll && node.querySelectorAll('img');
+                            if (imgs) {
+                                imgs.forEach(setupImageClickHandler);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+        
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
         });
         
         // Close modal when clicking close button
