@@ -42,12 +42,10 @@ jobs:
           
           # Minify JavaScript
           uglifyjs assets/script.js -o assets/script.min.js --compress --mangle
-          uglifyjs fix-images.js -o fix-images.min.js --compress --mangle
           
           # Update HTML to use minified assets
           sed -i 's/assets\/style\.css/assets\/style\.min\.css/g' index.html technical-details.html
           sed -i 's/assets\/script\.js/assets\/script\.min\.js/g' index.html technical-details.html
-          sed -i 's/fix-images\.js/fix-images\.min\.js/g' index.html technical-details.html
           
       - name: Optimize images
         run: |
@@ -72,7 +70,7 @@ jobs:
           destination: ./_site
           
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
 
   deploy:
     environment:
@@ -84,4 +82,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v3
+        uses: actions/deploy-pages@v4
