@@ -399,7 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 animation: bounceIn 0.6s ease-out;
             ">
                 <h3>🎉 Easter Egg Unlocked!</h3>
-                <p>PAM4 Receiver achieves 96.08% accuracy!</p>
+                <p>PAM4 Receiver achieves 95.99% accuracy!</p>
                 <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem;">
                     The MATLAB2HDL framework transformation is complete!
                 </p>
@@ -512,8 +512,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('🚀 PAM4 Receiver Website Loaded Successfully!');
-    console.log('📊 Performance: 96.08% Decision Accuracy');
-    console.log('⚡ Frequency: 300+ MHz Target');
+    console.log('📊 Performance: 95.99% Functional Accuracy');
+    console.log('⚡ Frequency: 141.28 MHz Achieved');
     console.log('🔧 DSP Reduction: 86%');
     console.log('Try the Konami code: ↑↑↓↓←→←→BA');
 });

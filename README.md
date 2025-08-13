@@ -7,12 +7,12 @@
 
 ## 🚀 Project Overview
 
-This repository showcases the complete development journey of a **PAM4 (4-level Pulse Amplitude Modulation) receiver** system, demonstrating advanced **MATLAB2HDL transformation capabilities** using an intelligent sub-agents framework. The project achieves **96.08% decision accuracy** with **86% DSP resource reduction** and **300+ MHz target frequency**.
+This repository showcases the complete development journey of a **PAM4 (4-level Pulse Amplitude Modulation) receiver** system, demonstrating advanced **MATLAB2HDL transformation capabilities** using an intelligent sub-agents framework. The project achieves **95.99% functional accuracy** with **86% DSP resource reduction** and **141.28 MHz achieved frequency**.
 
 ### 🎯 Key Achievements
 
-- **🏆 96.08% Decision Accuracy** - High-performance PAM4 symbol detection
-- **⚡ 7.5× Frequency Improvement** - From ~40 MHz to 300+ MHz operation  
+- **🏆 95.99% Functional Accuracy** - High-performance PAM4 symbol detection
+- **⚡ 7.5× Frequency Improvement** - From 18.83 MHz to 141.28 MHz operation  
 - **🔧 86% DSP Resource Reduction** - Optimized hardware implementation
 - **🤖 >95% Transformation Success Rate** - Intelligent sub-agents framework
 - **⏱️ <3 Second Agent Load Time** - Efficient tier-based access system
@@ -21,10 +21,10 @@ This repository showcases the complete development journey of a **PAM4 (4-level 
 
 | Implementation | Accuracy | Frequency | DSP Usage | Stability | Complexity |
 |----------------|----------|-----------|-----------|-----------|------------|
-| **Original MATLAB** | 99.99% | N/A | N/A | ⚠️ Degrades @ 19K blocks | Very High |
-| **Basic HDL** | 97.58% | ~40 MHz | 100% (baseline) | ✅ Perfect | Medium |
-| **DSP Optimized** | 96.08% | ~200 MHz | 14% (-86%) | ✅ Perfect | Medium |
-| **Timing Optimized** | 96.08% | 300+ MHz | 14% (-86%) | ✅ Perfect | Optimized |
+| **Original MATLAB** | Reference | N/A | N/A | ⚠️ Degrades @ 19K blocks | Very High |
+| **Basic HDL** | ~90% | 18.83 MHz | 560 DSPs (13.11%) | ✅ Perfect | Medium |
+| **DSP Optimized** | 96.44% | 89.16 MHz | 1,152 DSPs (-86% vs parallel) | ✅ Perfect | Medium |
+| **Timing Optimized** | 95.99% | 141.28 MHz | 1,152 DSPs (-86% vs parallel) | ✅ Perfect | Optimized |
 
 ## 🏗️ Architecture
 

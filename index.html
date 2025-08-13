@@ -106,9 +106,9 @@
                     <h3>HDL Implementation</h3>
                     <p>Hardware-optimized design with DSP resource efficiency and timing closure</p>
                     <ul>
-                        <li>300+ MHz target frequency</li>
+                        <li>141.28 MHz achieved frequency</li>
                         <li>86% DSP resource reduction</li>
-                        <li>96.08% decision accuracy</li>
+                        <li>95.99% functional accuracy</li>
                         <li>Modular pipeline architecture</li>
                     </ul>
                 </div>
@@ -336,8 +336,8 @@
                             <div class="impl-specs">
                                 <h4>Specifications</h4>
                                 <ul>
-                                    <li><strong>Accuracy:</strong> 97.58% decision accuracy</li>
-                                    <li><strong>Architecture:</strong> Stateless operations</li>
+                                    <li><strong>Accuracy:</strong> ~90% functional accuracy</li>
+                                    <li><strong>Frequency:</strong> 18.83 MHz achieved</li>
                                     <li><strong>Stability:</strong> Perfect long-term stability</li>
                                     <li><strong>Simplicity:</strong> HDL-compatible operations only</li>
                                 </ul>
@@ -370,7 +370,7 @@
                             <div class="impl-specs">
                                 <h4>Specifications</h4>
                                 <ul>
-                                    <li><strong>Accuracy:</strong> 96.08% decision accuracy</li>
+                                    <li><strong>Accuracy:</strong> 96.44% functional accuracy</li>
                                     <li><strong>DSP Usage:</strong> 86% reduction vs traditional</li>
                                     <li><strong>Architecture:</strong> dsp.FIRFilter system objects</li>
                                     <li><strong>Pipeline:</strong> 4-stage inter-module pipeline</li>
@@ -409,9 +409,9 @@
                             <div class="impl-specs">
                                 <h4>Specifications</h4>
                                 <ul>
-                                    <li><strong>Frequency:</strong> 300+ MHz target operation</li>
+                                    <li><strong>Frequency:</strong> 141.28 MHz achieved (200 MHz target)</li>
                                     <li><strong>Pipeline:</strong> ValidIn/ValidOut interfaces</li>
-                                    <li><strong>Efficiency:</strong> 99.9% pipeline efficiency</li>
+                                    <li><strong>Accuracy:</strong> 95.99% functional accuracy</li>
                                     <li><strong>Improvement:</strong> 7.5× frequency increase</li>
                                 </ul>
                             </div>
@@ -508,39 +508,39 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>Decision Accuracy</strong></td>
-                                <td class="best">99.99%</td>
-                                <td>97.58%</td>
-                                <td>96.08%</td>
-                                <td>96.08%</td>
+                                <td><strong>Functional Accuracy</strong></td>
+                                <td class="best">Reference</td>
+                                <td>~90%</td>
+                                <td>96.44%</td>
+                                <td class="best">95.99%</td>
                             </tr>
                             <tr>
-                                <td><strong>BER @ SNR=30dB</strong></td>
-                                <td class="best">9.38e-05</td>
-                                <td>1.23e-02</td>
-                                <td>~2e-02</td>
-                                <td>~2e-02</td>
+                                <td><strong>Achieved Frequency</strong></td>
+                                <td>N/A</td>
+                                <td>18.83 MHz</td>
+                                <td>89.16 MHz</td>
+                                <td class="best">141.28 MHz</td>
                             </tr>
                             <tr>
-                                <td><strong>Long-term Stability</strong></td>
-                                <td class="worst">Degrades @ 19K blocks</td>
-                                <td class="best">Perfect</td>
-                                <td class="best">Perfect</td>
-                                <td class="best">Perfect</td>
+                                <td><strong>Frequency Improvement</strong></td>
+                                <td>N/A</td>
+                                <td>Baseline</td>
+                                <td>4.7×</td>
+                                <td class="best">7.5× Total</td>
                             </tr>
                             <tr>
                                 <td><strong>DSP Resource Usage</strong></td>
                                 <td>N/A</td>
-                                <td>100% (baseline)</td>
-                                <td class="best">14% (-86%)</td>
-                                <td class="best">14% (-86%)</td>
+                                <td>560 DSPs (13.11%)</td>
+                                <td class="best">1,152 DSPs (-86% vs parallel)</td>
+                                <td class="best">1,152 DSPs (-86% vs parallel)</td>
                             </tr>
                             <tr>
-                                <td><strong>Max Frequency</strong></td>
+                                <td><strong>Timing Slack</strong></td>
                                 <td>N/A</td>
-                                <td>~40 MHz</td>
-                                <td>~200 MHz</td>
-                                <td class="best">300+ MHz</td>
+                                <td class="worst">-49.779 ns</td>
+                                <td>-4.549 ns</td>
+                                <td class="best">-2.078 ns</td>
                             </tr>
                             <tr>
                                 <td><strong>Pipeline Stages</strong></td>
@@ -712,7 +712,7 @@
                 <div class="footer-stats">
                     <span><i class="fas fa-code"></i> 4 Implementation Variants</span>
                     <span><i class="fas fa-chart-bar"></i> 86% DSP Reduction</span>
-                    <span><i class="fas fa-tachometer-alt"></i> 300+ MHz Performance</span>
+                    <span><i class="fas fa-tachometer-alt"></i> 141.28 MHz Achieved</span>
                 </div>
             </div>
         </div>
