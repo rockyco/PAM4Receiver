@@ -126,11 +126,11 @@ PAM4Receiver/
 ### Quick Start
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/username/PAM4Receiver.git
+   git clone https://github.com/rockyco/PAM4Receiver.git
    cd PAM4Receiver
    ```
 
-2. **View the live demo**: Visit [GitHub Pages site](https://username.github.io/PAM4Receiver)
+2. **View the live demo**: Visit [GitHub Pages site](https://rockyco.github.io/PAM4Receiver)
 
 3. **Explore implementations**: Review the four progressive implementation variants
 
@@ -205,9 +205,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - **📧 Email**: [Add your email]
-- **🐛 Issues**: [GitHub Issues](https://github.com/username/PAM4Receiver/issues)
-- **💡 Discussions**: [GitHub Discussions](https://github.com/username/PAM4Receiver/discussions)
-- **📖 Documentation**: [GitHub Pages](https://username.github.io/PAM4Receiver)
+- **🐛 Issues**: [GitHub Issues](https://github.com/rockyco/PAM4Receiver/issues)
+- **💡 Discussions**: [GitHub Discussions](https://github.com/rockyco/PAM4Receiver/discussions)
+- **📖 Documentation**: [GitHub Pages](https://rockyco.github.io/PAM4Receiver)
 
 ---
 
