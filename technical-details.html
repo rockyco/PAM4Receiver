@@ -113,7 +113,7 @@
                                 <li><strong>Functional Accuracy:</strong> 95.99%</li>
                                 <li><strong>BER Target:</strong> <1e-4</li>
                                 <li><strong>SNR Operating Range:</strong> 20-40 dB</li>
-                                <li><strong>DSP Reduction:</strong> 86%</li>
+                                <li><strong>DSP Usage:</strong> 1,152 DSPs (optimized)</li>
                                 <li><strong>Frequency Improvement:</strong> 7.5×</li>
                             </ul>
                         </div>
@@ -237,7 +237,7 @@
                     <div class="strategy-content">
                         <div class="strategy-description">
                             <h4>dsp.FIRFilter System Objects</h4>
-                            <p>The breakthrough 86% DSP reduction was achieved through systematic replacement of traditional FIR implementations with optimized system objects:</p>
+                            <p>Significant timing improvements were achieved through systematic replacement of traditional FIR implementations with optimized system objects:</p>
                         </div>
                         
                         <div class="optimization-comparison">
@@ -404,7 +404,7 @@ output = fir_filter(input);</code></pre>
                                 <h4>Resource Utilization</h4>
                                 <ul>
                                     <li><strong>LUT Usage:</strong> <2000 LUTs target</li>
-                                    <li><strong>DSP Slices:</strong> 86% reduction achieved</li>
+                                    <li><strong>DSP Slices:</strong> 1,152 DSPs (optimized)</li>
                                     <li><strong>Block RAM:</strong> Optimal coefficient storage</li>
                                     <li><strong>Frequency:</strong> 141.28 MHz achieved</li>
                                 </ul>
@@ -475,7 +475,6 @@ output = fir_filter(input);</code></pre>
                     <ul>
                         <li><a href="index.html">Main Project</a></li>
                         <li><a href="docs/PAM4_Receiver_Project_Documentation.md">Full Documentation</a></li>
-                        <li><a href="docs/Algorithm_Stability_Analysis.md">Stability Analysis</a></li>
                         <li><a href="docs/PAM4_Receiver_Design_Evolution_Analysis.md">Design Evolution</a></li>
                     </ul>
                 </div>
@@ -494,6 +493,12 @@ output = fir_filter(input);</code></pre>
             
             <div class="footer-bottom">
                 <p>&copy; 2025 PAM4 Receiver Technical Documentation. Advanced MATLAB2HDL Framework.</p>
+                <div class="visitor-counter">
+                    <i class="fas fa-eye"></i> Visitors: 
+                    <span id="visitor-count">
+                        <img src="https://visitor-badge.laobi.icu/badge?page_id=rockyco.PAM4Receiver.technical&title=&bg_color=1f2937&text_color=ffffff&icon_color=3b82f6&text=visitors" alt="Visitor Count" style="vertical-align: middle; height: 20px;">
+                    </span>
+                </div>
             </div>
         </div>
     </footer>

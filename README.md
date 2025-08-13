@@ -7,13 +7,13 @@
 
 ## 🚀 Project Overview
 
-This repository showcases the complete development journey of a **PAM4 (4-level Pulse Amplitude Modulation) receiver** system, demonstrating advanced **MATLAB2HDL transformation capabilities** using an intelligent sub-agents framework. The project achieves **95.99% functional accuracy** with **86% DSP resource reduction** and **141.28 MHz achieved frequency**.
+This repository showcases the complete development journey of a **PAM4 (4-level Pulse Amplitude Modulation) receiver** system, demonstrating advanced **MATLAB2HDL transformation capabilities** using an intelligent sub-agents framework. The project achieves **95.99% functional accuracy** and **141.28 MHz achieved frequency** through systematic optimization.
 
 ### 🎯 Key Achievements
 
 - **🏆 95.99% Functional Accuracy** - High-performance PAM4 symbol detection
 - **⚡ 7.5× Frequency Improvement** - From 18.83 MHz to 141.28 MHz operation  
-- **🔧 86% DSP Resource Reduction** - Optimized hardware implementation
+- **🔧 DSP-Optimized Implementation** - Using dsp.FIRFilter system objects
 - **🤖 >95% Transformation Success Rate** - Intelligent sub-agents framework
 - **⏱️ <3 Second Agent Load Time** - Efficient tier-based access system
 
@@ -23,8 +23,8 @@ This repository showcases the complete development journey of a **PAM4 (4-level 
 |----------------|----------|-----------|-----------|-----------|------------|
 | **Original MATLAB** | Reference | N/A | N/A | ⚠️ Degrades @ 19K blocks | Very High |
 | **Basic HDL** | ~90% | 18.83 MHz | 560 DSPs (13.11%) | ✅ Perfect | Medium |
-| **DSP Optimized** | 96.44% | 89.16 MHz | 1,152 DSPs (-86% vs parallel) | ✅ Perfect | Medium |
-| **Timing Optimized** | 95.99% | 141.28 MHz | 1,152 DSPs (-86% vs parallel) | ✅ Perfect | Optimized |
+| **DSP Optimized** | 96.44% | 89.16 MHz | 1,152 DSPs | ✅ Perfect | Medium |
+| **Timing Optimized** | 95.99% | 141.28 MHz | 1,152 DSPs | ✅ Perfect | Optimized |
 
 ## 🏗️ Architecture
 
@@ -40,7 +40,7 @@ This repository showcases the complete development journey of a **PAM4 (4-level 
 - **🔄 32-tap Feed-Forward Equalizer (FFE)**: ISI compensation using circular buffers
 - **📊 PAM4 Slicer**: 3-threshold decision circuit for 4-level modulation
 - **🧠 LMS Adaptation Engine**: Real-time coefficient optimization
-- **⚙️ DSP Optimization**: dsp.FIRFilter system objects for hardware efficiency
+- **⚙️ DSP Optimization**: dsp.FIRFilter system objects for improved timing
 
 ## 🛠️ MATLAB2HDL Sub-Agents Framework
 
@@ -71,10 +71,10 @@ This repository showcases the complete development journey of a **PAM4 (4-level 
 
 ### Resource Utilization
 ```
-DSP Slices:     86% reduction (via dsp.FIRFilter optimization)
+DSP Slices:     1,152 (optimized via dsp.FIRFilter)
 Block RAM:      Optimized usage for circular buffers
 Logic Cells:    Balanced pipeline architecture
-Max Frequency:  300+ MHz (7.5× improvement)
+Max Frequency:  141.28 MHz (7.5× improvement)
 ```
 
 ## 🔬 Technical Specifications
@@ -87,7 +87,7 @@ Max Frequency:  300+ MHz (7.5× improvement)
 
 ### HDL Implementation
 - **Target Platform**: Xilinx Kintex-7 (xc7k410t-ffg900-1)
-- **Clock Frequency**: 150-300+ MHz operation
+- **Clock Frequency**: 141.28 MHz achieved
 - **Data Width**: 7-bit ADC input, 32-parallel processing
 - **Arithmetic**: Q6.6 fixed-point with overflow protection
 - **Pipeline**: 4-stage inter-module pipeline with validIn/validOut interfaces
@@ -107,7 +107,6 @@ PAM4Receiver/
 │   └── ...
 ├── docs/                     # Technical documentation
 │   ├── PAM4_Receiver_Project_Documentation.md
-│   ├── Algorithm_Stability_Analysis.md
 │   └── PAM4_Receiver_Design_Evolution_Analysis.md
 ├── data/                     # Test vectors and configuration files
 ├── _config.yml              # GitHub Pages configuration
@@ -152,7 +151,7 @@ The project includes comprehensive visualization suite:
 1. **📝 Original MATLAB Algorithm**: High-level implementation with advanced features
 2. **🔄 Framework Analysis**: Algorithm classification and template selection  
 3. **⚙️ HDL Transformation**: Systematic conversion using sub-agents framework
-4. **🚀 DSP Optimization**: Resource optimization using system objects
+4. **🚀 DSP Optimization**: Timing optimization using system objects
 5. **⏱️ Timing Optimization**: Pipeline architecture for maximum frequency
 6. **✅ Validation & Testing**: Comprehensive verification with 5000+ test vectors
 
@@ -166,8 +165,7 @@ The project includes comprehensive visualization suite:
 
 ### Technical Documents
 - **[Project Documentation](docs/PAM4_Receiver_Project_Documentation.md)**: Complete technical overview
-- **[Stability Analysis](docs/Algorithm_Stability_Analysis.md)**: Long-term behavior analysis
-- **[Design Evolution](docs/PAM4_Receiver_Design_Evolution_Analysis.md)**: Development progression
+- **[Design Evolution](docs/PAM4_Receiver_Design_Evolution_Analysis.md)**: Development progression and performance analysis
 
 ### Framework Documentation
 - **HDL Transformation Guide**: Systematic transformation methodology

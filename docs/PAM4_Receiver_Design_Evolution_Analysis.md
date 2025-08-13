@@ -14,7 +14,7 @@ This document provides a comprehensive analysis of the MATLAB2HDL transformation
 
 ### **Key Achievements:**
 - **7.5x frequency improvement** (18.83 → 141.28 MHz)
-- **86% DSP resource reduction** through system object optimization
+- **DSP optimization** through system object implementation
 - **95.99% functional accuracy** preserved across optimizations
 - **Systematic workflow** with <3 second agent response times
 - **4 distinct implementation stages** with measurable improvements
@@ -33,7 +33,7 @@ graph TD
     
     A1[Variable Parallelism<br/>Circular Buffers<br/>Full LMS] --> A
     B1[Fixed Parallelism<br/>Simplified FFE<br/>HDL Compatible] --> B
-    C1[dsp.FIRFilter<br/>500x DSP Reduction<br/>Systolic Architecture] --> C
+    C1[dsp.FIRFilter<br/>Improved Timing<br/>Systolic Architecture] --> C
     D1[validIn/validOut<br/>Deep Pipeline<br/>Resource Optimized] --> D
 ```
 
@@ -167,7 +167,7 @@ Synthesis Results:
 ```matlab
 function equalized_output = dsp_optimized_ffe(input_samples, coeffs, P)
     % Ultra-Optimized FFE using dsp.FIRFilter system object
-    % Achieves 500x DSP reduction through systolic architecture
+    % Achieves improved timing through systolic architecture
     
     persistent systolicFilter isInitialized
     
@@ -194,7 +194,7 @@ DSP Resource Evolution:
 ├── Original Algorithm: 32×32 = 1,024 theoretical multipliers
 ├── Basic HDL: 8,192 parallel multipliers → 560 DSPs (synthesis optimization)
 ├── DSP Optimized: Systolic FIR → 1,152 DSPs (controlled architecture)
-└── Net Benefit: 86% reduction in multiplier resources vs parallel implementation
+└── Net Benefit: Improved timing and resource control
 ```
 
 ##### **3. Systolic Architecture Benefits:**
@@ -222,7 +222,7 @@ Synthesis Results:
 ```
 
 #### **Stage Assessment:**
-- ✅ **Resource Optimization**: 86% DSP reduction achieved
+- ✅ **Resource Optimization**: DSP architecture improved
 - ✅ **Timing Improvement**: 4.7x frequency improvement
 - ✅ **Functional Accuracy**: 96.44% (excellent)
 - ⚠️ **Resource Usage**: Higher LUTs/registers (expected for optimization)
@@ -301,11 +301,11 @@ end
 ##### **3. Resource-Optimized Pipeline Reduction:**
 ```
 Internal Pipeline Stage Optimization:
-├── Digital Gain Control: 2 stages → 1 stage (50% reduction)
-├── DSP FFE: 3 stages → 2 stages (33% reduction)
-├── Slicer: 2 stages → 1 stage (50% reduction)
-├── LMS Update: 3 stages → 2 stages (33% reduction)
-└── Net Result: 93% register reduction with maintained performance
+├── Digital Gain Control: 2 stages → 1 stage (optimized)
+├── DSP FFE: 3 stages → 2 stages (optimized)
+├── Slicer: 2 stages → 1 stage (optimized)
+├── LMS Update: 3 stages → 2 stages (optimized)
+└── Net Result: Improved timing with maintained performance
 ```
 
 #### **Pipeline Architecture Benefits:**
@@ -349,7 +349,7 @@ Synthesis Results:
 |------------|--------------|---------------|-------------------|----------------------|----------------------|
 | **CLB LUTs** | N/A | 17,856 (4.20%) | 44,129 (10.38%) | 45,240 (10.64%) | Controlled increase |
 | **CLB Registers** | N/A | 5,850 (0.69%) | 31,632 (3.72%) | 58,252 (6.85%) | Strategic increase |
-| **DSPs** | N/A | 560 (13.11%) | 1,152 (26.97%) | 1,152 (26.97%) | 86% reduction vs parallel |
+| **DSPs** | N/A | 560 (13.11%) | 1,152 (26.97%) | 1,152 (26.97%) | Optimized design |
 | **Target Frequency** | N/A | 300 MHz | 150 MHz | 200 MHz | Realistic targets |
 | **Achieved Frequency** | N/A | 18.83 MHz | 89.16 MHz | 141.28 MHz | **7.5x improvement** |
 | **Timing Slack** | N/A | -49.779 ns | -4.549 ns | -2.078 ns | 96% improvement |
@@ -371,7 +371,7 @@ Frequency Evolution:
 Resource Trade-off Strategy:
 ├── LUTs: 2.5x controlled increase for optimization infrastructure
 ├── Registers: 10x strategic increase for pipeline timing closure
-├── DSPs: 2x increase but 86% reduction vs. naive parallel implementation
+├── DSPs: 2x increase but optimized systolic architecture
 └── Overall: Excellent resource efficiency for performance gained
 ```
 
@@ -615,7 +615,7 @@ Optimization Strategy:
 ├── Solution: dsp.FIRFilter system object (proven pattern)
 ├── Architecture: Systolic FIR with time-varying coefficients
 ├── Processing: Vector input (32 samples/cycle)
-└── Result: 86% DSP resource reduction achieved
+└── Result: Improved timing performance achieved
 
 Framework Elements Used:
 ├── DSP_OPTIMIZATION.md: System object selection rules
@@ -624,7 +624,7 @@ Framework Elements Used:
 └── Template guidance: Vector processing patterns
 
 Success Metrics:
-├── Resource Optimization: ✅ 86% DSP reduction
+├── Resource Optimization: ✅ DSP architecture improved
 ├── Timing Improvement: ✅ 4.7x frequency improvement
 ├── Functional Accuracy: ✅ 96.44% (excellent)
 └── Framework Efficiency: <3s total agent coordination time
@@ -997,7 +997,7 @@ Framework Decision Tree Success:
 ├── Resource Profile: 32×32 FIR → High-parallelism DSP
 ├── Template Selection: DSP_OPTIMIZATION.md → Correct choice
 ├── System Object: dsp.FIRFilter → Optimal for FIR filtering
-└── Result: 86% DSP resource reduction achieved
+└── Result: Improved timing performance achieved
 
 Key Learning: Accurate algorithm classification is critical for template selection
 ```
@@ -1083,7 +1083,7 @@ Multi-Agent Performance:
 ├── Context Preservation: 100% across agent handoffs
 ├── Template Application: 95% success rate
 ├── Accuracy Maintenance: >95% throughout optimizations
-└── Resource Optimization: 86% DSP reduction achieved
+└── Resource Optimization: DSP optimization achieved
 
 Framework Benefits:
 ├── Systematic approach prevents missed optimizations
@@ -1112,7 +1112,7 @@ Key Success: Framework provided exactly the right knowledge at the right time
 
 #### **Technical Achievements:**
 - ✅ **7.5x Frequency Improvement**: 18.83 MHz → 141.28 MHz
-- ✅ **86% DSP Resource Reduction**: Through dsp.FIRFilter optimization
+- ✅ **DSP Optimization**: Through dsp.FIRFilter system objects
 - ✅ **95.99% Functional Accuracy**: Maintained throughout optimizations
 - ✅ **Systematic Workflow**: <3 second agent response times
 - ✅ **HDL Synthesis Success**: All implementations synthesis-ready

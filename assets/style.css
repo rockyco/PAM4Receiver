@@ -1117,6 +1117,38 @@ body {
     color: var(--primary-light);
 }
 
+/* Visitor Counter */
+.visitor-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.875rem;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.visitor-counter:hover {
+    opacity: 1;
+}
+
+.visitor-counter i {
+    color: var(--primary-light);
+    font-size: 1rem;
+}
+
+.visitor-counter img {
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+}
+
+.visitor-counter:hover img {
+    transform: scale(1.05);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .nav-menu {
@@ -1232,6 +1264,24 @@ body {
     .framework-stats {
         grid-template-columns: repeat(2, 1fr);
     }
+    
+    /* Visitor counter mobile styles */
+    .visitor-counter {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
 
 /* Animations */
@@ -1324,4 +1374,84 @@ body {
     .btn {
         display: none;
     }
+}
+
+/* Image Zoom Modal */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: zoomIn 0.3s ease-out;
+}
+
+.modal-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    z-index: 10000;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #bbb;
+    text-decoration: none;
+}
+
+/* Make images clickable */
+.clickable-image {
+    cursor: zoom-in;
+    transition: transform 0.2s ease-out;
+}
+
+.clickable-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+    from { transform: translate(-50%, -50%) scale(0.8); }
+    to { transform: translate(-50%, -50%) scale(1); }
 }

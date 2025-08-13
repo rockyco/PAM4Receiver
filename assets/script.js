@@ -511,9 +511,128 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Image Zoom Functionality
+    const setupImageZoom = () => {
+        // Create modal elements
+        const modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.id = 'imageModal';
+        
+        const modalClose = document.createElement('span');
+        modalClose.className = 'modal-close';
+        modalClose.innerHTML = '&times;';
+        
+        const modalImg = document.createElement('img');
+        modalImg.className = 'modal-content';
+        modalImg.id = 'modalImage';
+        
+        const modalCaption = document.createElement('div');
+        modalCaption.className = 'modal-caption';
+        modalCaption.id = 'modalCaption';
+        
+        modal.appendChild(modalClose);
+        modal.appendChild(modalImg);
+        modal.appendChild(modalCaption);
+        document.body.appendChild(modal);
+        
+        // Get all images and make them clickable
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            // Skip navigation or icon images
+            if (img.closest('.nav-logo') || img.width < 100) return;
+            
+            img.classList.add('clickable-image');
+            img.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.src;
+                modalCaption.innerHTML = this.alt || this.closest('.image-caption')?.textContent || 'PAM4 Receiver Analysis';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling
+            });
+        });
+        
+        // Close modal when clicking close button
+        modalClose.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.style.display === 'block') {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Handle zoom with mouse wheel
+        let scale = 1;
+        modalImg.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            if (e.deltaY < 0) {
+                scale = Math.min(scale * 1.1, 3); // Zoom in, max 3x
+            } else {
+                scale = Math.max(scale * 0.9, 0.5); // Zoom out, min 0.5x
+            }
+            modalImg.style.transform = `scale(${scale})`;
+        });
+        
+        // Reset scale when modal opens
+        modal.addEventListener('transitionend', () => {
+            if (modal.style.display === 'block') {
+                scale = 1;
+                modalImg.style.transform = 'scale(1)';
+            }
+        });
+    };
+    
+    // Initialize image zoom
+    setupImageZoom();
+    
+    // Visitor Counter Enhancement
+    const enhanceVisitorCounter = () => {
+        const visitorCounters = document.querySelectorAll('.visitor-counter');
+        
+        visitorCounters.forEach(counter => {
+            // Add subtle animation
+            counter.style.animation = 'fadeIn 0.5s ease-out';
+            
+            // Add loading text while badge loads
+            const img = counter.querySelector('img');
+            if (img) {
+                img.addEventListener('error', () => {
+                    // Fallback if external service is unavailable
+                    counter.innerHTML = '<i class="fas fa-eye"></i> <span style="color: var(--primary-light);">Welcome Visitors!</span>';
+                });
+                
+                // Add title for accessibility
+                img.title = 'Website visitor count provided by visitor-badge.laobi.icu';
+            }
+        });
+        
+        // Optional: Add local session tracking (for development/analytics)
+        if (typeof(Storage) !== "undefined") {
+            let sessionVisits = localStorage.getItem('pam4_visits') || 0;
+            sessionVisits++;
+            localStorage.setItem('pam4_visits', sessionVisits);
+            console.log(`🔢 Local session visits: ${sessionVisits}`);
+        }
+    };
+    
+    // Initialize visitor counter enhancements
+    enhanceVisitorCounter();
+    
     console.log('🚀 PAM4 Receiver Website Loaded Successfully!');
     console.log('📊 Performance: 95.99% Functional Accuracy');
     console.log('⚡ Frequency: 141.28 MHz Achieved');
-    console.log('🔧 DSP Reduction: 86%');
+    console.log('🔧 DSP: Optimized Implementation');
+    console.log('👁️ Visitor counter active');
     console.log('Try the Konami code: ↑↑↓↓←→←→BA');
 });

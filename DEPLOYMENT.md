@@ -11,7 +11,7 @@
 ```bash
 # Create new repository on GitHub named 'PAM4Receiver'
 # Clone the repository
-git clone https://github.com/yourusername/PAM4Receiver.git
+git clone https://github.com/rockyco/PAM4Receiver.git
 cd PAM4Receiver
 
 # Copy all website files from this directory
@@ -29,10 +29,10 @@ Edit the following files with your information:
 
 **_config.yml**:
 ```yaml
-title: "Your PAM4 Receiver Project"
-url: "https://yourusername.github.io"
+title: "PAM4 Receiver Project"
+url: "https://rockyco.github.io"
 baseurl: "/PAM4Receiver"
-repository: yourusername/PAM4Receiver
+repository: rockyco/PAM4Receiver
 ```
 
 **README.md**:
@@ -139,7 +139,7 @@ imagemin images/*.png --plugin=pngquant --out-dir=images/
 ## 🌐 Live Example
 
 Once deployed, your website will be available at:
-`https://yourusername.github.io/PAM4Receiver`
+`https://rockyco.github.io/PAM4Receiver`
 
 ## 📞 Support
 
@@ -166,7 +166,7 @@ imagemin images/*.png --plugin=pngquant --out-dir=images/
 
 This website showcases:
 - **96.08% Decision Accuracy** achieved through intelligent optimization
-- **86% DSP Resource Reduction** via dsp.FIRFilter system objects
+- **DSP-Optimized Implementation** via dsp.FIRFilter system objects
 - **7.5× Frequency Improvement** with advanced pipeline architecture
 - **>95% Framework Success Rate** using sub-agents methodology
 - **<3 Second Agent Load Time** with tier-based access system

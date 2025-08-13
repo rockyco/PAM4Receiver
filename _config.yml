@@ -3,8 +3,8 @@
 # Site settings
 title: "PAM4 Receiver: MATLAB2HDL Transformation Framework"
 description: "Advanced PAM4 receiver implementation showcasing intelligent MATLAB2HDL transformation using sub-agents framework"
-url: "https://username.github.io" # Replace with your GitHub Pages URL
-baseurl: "/PAM4Receiver" # Replace with your repository name
+url: "https://rockyco.github.io" # GitHub Pages URL
+baseurl: "/PAM4Receiver" # Repository name
 
 # Build settings
 markdown: kramdown
@@ -12,7 +12,7 @@ highlighter: rouge
 theme: minima
 
 # Repository information
-repository: username/PAM4Receiver # Replace with your GitHub username/repo
+repository: rockyco/PAM4Receiver # GitHub repository
 
 # SEO settings
 lang: en
