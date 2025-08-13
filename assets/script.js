@@ -304,7 +304,11 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // COMPLETELY SKIP Performance Results section images - let CSS handle them
         if (img.closest('.result-images') || img.closest('.component-results')) {
-            console.log('Skipping Performance Results image:', img.src);
+            console.log('🖼️ SKIPPING Performance Results image (no JS processing):', img.src);
+            // Force immediate visibility and no processing
+            img.style.removeProperty('opacity');
+            img.style.removeProperty('transition');
+            img.style.removeProperty('filter');
             return; // Don't apply any JavaScript processing
         }
         

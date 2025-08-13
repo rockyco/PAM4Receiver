@@ -750,12 +750,13 @@ body {
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: var(--shadow-md);
-    transition: var(--transition);
+    transition: none !important; /* Disable transitions to prevent flashing */
 }
 
 .result-image-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
+    /* Disable hover animations to prevent flashing */
+    /* transform: translateY(-4px); */
+    /* box-shadow: var(--shadow-lg); */
 }
 
 .result-image-card img {
@@ -797,13 +798,14 @@ body {
     padding: 1.5rem;
     box-shadow: var(--shadow);
     border: 1px solid var(--gray-200);
-    transition: var(--transition);
+    transition: none !important; /* Disable transitions to prevent flashing */
     text-align: center;
 }
 
 .component-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    /* Disable hover animations to prevent flashing */
+    /* transform: translateY(-2px); */
+    /* box-shadow: var(--shadow-md); */
 }
 
 .component-card img {
@@ -1582,6 +1584,17 @@ img[style*="border: 2px solid red"]::before {
 img {
     opacity: 1;
     transition: opacity 0.3s ease-out;
+}
+
+/* Override for performance section - NO transitions allowed */
+.result-images img,
+.component-results img,
+.result-image-card img, 
+.component-card img {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 /* Special handling for performance section images - force stable visibility */
