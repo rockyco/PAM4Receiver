@@ -4,7 +4,8 @@
 title: "PAM4 Receiver: MATLAB2HDL Transformation Framework"
 description: "Advanced PAM4 receiver implementation showcasing intelligent MATLAB2HDL transformation using sub-agents framework"
 url: "https://rockyco.github.io" # GitHub Pages URL
-baseurl: "" # Empty baseurl for simpler paths
+baseurl: "/PAM4Receiver"
+repository: rockyco/PAM4Receiver
 
 # Build settings
 markdown: kramdown

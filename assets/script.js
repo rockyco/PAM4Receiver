@@ -530,9 +530,14 @@ document.addEventListener('DOMContentLoaded', function() {
         modalCaption.className = 'modal-caption';
         modalCaption.id = 'modalCaption';
         
+        const zoomInstructions = document.createElement('div');
+        zoomInstructions.className = 'zoom-instructions';
+        zoomInstructions.innerHTML = '🔍 Scroll to zoom • 🖱️ Drag to pan • ⌨️ Double-click to reset';
+        
         modal.appendChild(modalClose);
         modal.appendChild(modalImg);
         modal.appendChild(modalCaption);
+        modal.appendChild(zoomInstructions);
         document.body.appendChild(modal);
         
         // Function to setup image click handlers
@@ -555,10 +560,24 @@ document.addEventListener('DOMContentLoaded', function() {
             img.addEventListener('click', function(e) {
                 e.preventDefault();
                 console.log(`Image clicked: ${this.src}`);
-                modal.style.display = 'block';
+                
+                // Show modal with flex display for proper centering
+                modal.classList.add('show');
                 modalImg.src = this.src;
+                modalImg.style.transform = 'scale(1)'; // Reset any zoom
                 modalCaption.innerHTML = this.alt || this.closest('.image-caption')?.textContent || 'PAM4 Receiver Analysis';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling
+                document.body.style.overflow = 'hidden';
+                
+                // Show instructions briefly
+                zoomInstructions.classList.add('show');
+                setTimeout(() => {
+                    zoomInstructions.classList.remove('show');
+                }, 3000);
+                
+                // Ensure image loads properly
+                modalImg.onload = function() {
+                    console.log(`Modal image loaded: ${this.naturalWidth}x${this.naturalHeight}`);
+                };
             });
         };
         
@@ -590,46 +609,115 @@ document.addEventListener('DOMContentLoaded', function() {
             subtree: true
         });
         
-        // Close modal when clicking close button
-        modalClose.addEventListener('click', () => {
-            modal.style.display = 'none';
+        // Function to close modal
+        const closeModal = () => {
+            modal.classList.remove('show');
+            modalImg.style.transform = 'scale(1)'; // Reset zoom
+            modalImg.classList.remove('zoomed');
             document.body.style.overflow = 'auto';
-        });
+            scale = 1; // Reset scale variable
+        };
+        
+        // Close modal when clicking close button
+        modalClose.addEventListener('click', closeModal);
         
         // Close modal when clicking outside the image
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+                closeModal();
             }
         });
         
         // Close modal with Escape key
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal.style.display === 'block') {
-                modal.style.display = 'none';
-                document.body.style.overflow = 'auto';
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
             }
         });
+        
+        // Enhanced zoom and pan functionality
+        let scale = 1;
+        let panX = 0;
+        let panY = 0;
+        let isPanning = false;
+        let startX = 0;
+        let startY = 0;
         
         // Handle zoom with mouse wheel
-        let scale = 1;
         modalImg.addEventListener('wheel', (e) => {
             e.preventDefault();
+            
+            const rect = modalImg.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const oldScale = scale;
+            
             if (e.deltaY < 0) {
-                scale = Math.min(scale * 1.1, 3); // Zoom in, max 3x
+                scale = Math.min(scale * 1.2, 4); // Zoom in, max 4x
             } else {
-                scale = Math.max(scale * 0.9, 0.5); // Zoom out, min 0.5x
+                scale = Math.max(scale * 0.8, 0.5); // Zoom out, min 0.5x
             }
-            modalImg.style.transform = `scale(${scale})`;
+            
+            // Calculate new pan position to keep zoom centered on mouse
+            if (scale !== oldScale) {
+                const scaleRatio = scale / oldScale;
+                panX = x - (x - panX) * scaleRatio;
+                panY = y - (y - panY) * scaleRatio;
+                
+                updateImageTransform();
+                
+                // Add zoomed class for cursor change
+                if (scale > 1) {
+                    modalImg.classList.add('zoomed');
+                } else {
+                    modalImg.classList.remove('zoomed');
+                    panX = 0;
+                    panY = 0;
+                    updateImageTransform();
+                }
+            }
         });
         
-        // Reset scale when modal opens
-        modal.addEventListener('transitionend', () => {
-            if (modal.style.display === 'block') {
-                scale = 1;
-                modalImg.style.transform = 'scale(1)';
+        // Handle panning
+        modalImg.addEventListener('mousedown', (e) => {
+            if (scale > 1) {
+                isPanning = true;
+                startX = e.clientX - panX;
+                startY = e.clientY - panY;
+                modalImg.style.cursor = 'grabbing';
+                e.preventDefault();
             }
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (isPanning && scale > 1) {
+                panX = e.clientX - startX;
+                panY = e.clientY - startY;
+                updateImageTransform();
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            if (isPanning) {
+                isPanning = false;
+                modalImg.style.cursor = scale > 1 ? 'grab' : 'default';
+            }
+        });
+        
+        // Function to update image transform
+        const updateImageTransform = () => {
+            const transform = `scale(${scale}) translate(${panX/scale}px, ${panY/scale}px)`;
+            modalImg.style.transform = transform;
+        };
+        
+        // Double-click to reset zoom
+        modalImg.addEventListener('dblclick', () => {
+            scale = 1;
+            panX = 0;
+            panY = 0;
+            modalImg.classList.remove('zoomed');
+            updateImageTransform();
         });
     };
     

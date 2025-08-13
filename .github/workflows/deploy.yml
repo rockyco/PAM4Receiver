@@ -1,0 +1,87 @@
+name: Deploy PAM4 Receiver Website
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: |
+          npm install -g html-minifier-terser
+          npm install -g uglifycss
+          npm install -g uglify-js
+          
+      - name: Optimize assets
+        run: |
+          # Minify CSS
+          uglifycss assets/style.css > assets/style.min.css
+          
+          # Minify JavaScript
+          uglifyjs assets/script.js -o assets/script.min.js --compress --mangle
+          uglifyjs fix-images.js -o fix-images.min.js --compress --mangle
+          
+          # Update HTML to use minified assets
+          sed -i 's/assets\/style\.css/assets\/style\.min\.css/g' index.html technical-details.html
+          sed -i 's/assets\/script\.js/assets\/script\.min\.js/g' index.html technical-details.html
+          sed -i 's/fix-images\.js/fix-images\.min\.js/g' index.html technical-details.html
+          
+      - name: Optimize images
+        run: |
+          # Install image optimization tools
+          sudo apt-get update
+          sudo apt-get install -y optipng jpegoptim
+          
+          # Optimize PNG images
+          find images/ -name "*.png" -exec optipng -o2 {} \;
+          
+          # List optimized files
+          echo "Optimized images:"
+          ls -lh images/
+          
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+          
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v3
