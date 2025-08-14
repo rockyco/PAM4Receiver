@@ -3,7 +3,7 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-brightgreen)](https://username.github.io/PAM4Receiver)
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2025a-orange)](https://www.mathworks.com/products/matlab.html)
 [![HDL](https://img.shields.io/badge/HDL-Verilog-blue)](https://en.wikipedia.org/wiki/Verilog)
-[![Framework](https://img.shields.io/badge/Framework-v3.0-purple)](https://github.com/username/MATLAB2HDL)
+[![Framework](https://img.shields.io/badge/Framework-v3.2-purple)](https://github.com/username/MATLAB2HDL)
 
 ## 🚀 Project Overview
 
@@ -44,7 +44,7 @@ This repository showcases the complete development journey of a **PAM4 (4-level 
 
 ## 🛠️ MATLAB2HDL Sub-Agents Framework
 
-### Framework v3.0 Features
+### Framework v3.2 Features
 
 - **📁 Tier-Based Access System**: 4 essential files (<2s), conditional templates (1-3 files), reference materials (0-2 files)
 - **🤖 Intelligent Sub-Agents**: Specialized transformation, analysis, validation, and coordination agents
@@ -211,7 +211,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**🚀 Built with the MATLAB2HDL Sub-Agents Framework v3.0**
+**🚀 Built with the MATLAB2HDL Sub-Agents Framework v3.2**
 
 [![MATLAB](https://img.shields.io/badge/MATLAB-R2025a-orange?style=for-the-badge&logo=mathworks)](https://www.mathworks.com)
 [![Verilog](https://img.shields.io/badge/Verilog-HDL-blue?style=for-the-badge)](https://en.wikipedia.org/wiki/Verilog)
